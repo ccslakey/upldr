@@ -1,0 +1,50 @@
+<% if !flash[:notice].blank? %>
+<div class="alert alert-info">
+	<%= flash[:notice] %>
+</div>
+<% end %>
+
+<br/>
+
+<%= link_to "New Upld", new_upload_path, class: "btn btn-primary" %>
+<br/>
+<br/>
+<div class="table-responsive">
+
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Download Link</th>
+				<th>File extension</th>
+				<th>Created at</th>
+				<th>Modified</th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @uploads.each do |upload| %>
+
+			<tr>
+				<td><%= upload.name %></td>
+				<td><%= link_to "Download Upld", upload.attachment_url %></td>
+				<td><%=File.extname("#{upload.attachment}")%></td>
+				<td><%= Date.parse(upload.created_at.to_s).strftime('%m/%d/%Y') %>
+					<hr/>
+					<%= time_ago_in_words Date.parse(upload.created_at.to_s)%>
+					ago
+				</td>
+				<td><%= Date.parse(upload.updated_at.to_s).strftime('%m/%d/%Y') %>
+					<hr/>
+					<%= time_ago_in_words Date.parse(upload.updated_at.to_s)%>
+					ago
+				</td>
+				<td><%= button_to "Delete",  upload, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{upload.name}?" %></td>
+			</tr>
+
+			<% end %>
+		</tbody>
+
+	</table>
+</div>
