@@ -1,33 +1,36 @@
 class UploadsController < ApplicationController
-	def index
-       @uploads = Upload.all
+  before_filter :authenticate_user!
+  # ^^^ not just yet
+
+  def index
+    @uploads = Upload.all
     end
 
-    def new
-       @upload = Upload.new
+  def new
+    @upload = Upload.new
+  end
+
+  def create
+    @upload = Upload.new(upload_params)
+
+    if @upload.save
+      flash[:notice] = "#{@upload.name} has been uploaded."
+      redirect_to uploads_path
+    else
+      render 'new'
     end
+  end
 
-    def create
-       @upload = Upload.new(upload_params)
+  def destroy
+    @upload = Upload.find(params[:id])
+    @upload.destroy
+    flash[:notice] = "#{@upload.name} deleted."
+    redirect_to uploads_path
+  end
 
-       if @upload.save
-		  flash[:notice] = "#{@upload.name} has been uploaded."
-          redirect_to uploads_path
-       else
-          render "new"
-       end
+  private
 
-    end
-
-    def destroy
-       @upload = Upload.find(params[:id])
-       @upload.destroy
-	   flash[:notice] = "#{@upload.name} deleted."
-       redirect_to uploads_path
-    end
-
-    private
-       def upload_params
-       params.require(:upload).permit(:name, :attachment)
-    end
+  def upload_params
+    params.require(:upload).permit(:name, :attachment)
+     end
 end
