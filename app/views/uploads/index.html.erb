@@ -35,7 +35,7 @@
 					<%= time_ago_in_words Date.parse(upload.created_at.to_s)%>
 					ago
 				</td>
-				<td><%= Date.parse(upload.updated_at.to_s).strftime('%m/%d/%Y') %>
+				<td class="smalltext"><%= Date.parse(upload.updated_at.to_s).strftime('%m/%d/%Y') %>
 					<hr/>
 					<%= time_ago_in_words Date.parse(upload.updated_at.to_s)%>
 					ago
