@@ -48,5 +48,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'carrierwave', '~> 0.9'
-gem 'bootstrap-sass', '~>2.3.2'
+gem 'bootstrap', '~> 4.0.0.alpha3.1'
 # gem 'autoprefixer-rails'
